@@ -1,0 +1,1142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0044)http://www.oschina.net/question/234345_40111 -->
+<html lang="zh-CN" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="Content-Language" content="zh-CN">
+  <meta name="robots" content="index, follow">
+  <link rel="shortcut icon" type="image/x-icon" href="http://www.oschina.net/img/favicon.ico">
+  <title>【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区</title>
+      <link rel="stylesheet" href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/space2011.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/tip-yellowsimple.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/jquery.fancybox-1.3.4.css" media="screen">
+  <script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/jquery-1.5.1.min.js"></script>
+  <script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/jquery.form-2.67.js"></script>
+  <script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/jquery.fancybox-1.3.4.pack.js"></script>
+  <script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/jquery.poshytip.min.js"></script>
+  <script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/oschina.js"></script>
+  <script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/scrolltopcontrol.js"></script>
+  <link rel="alternate" type="application/rss+xml" title="最新问题列表" href="http://www.oschina.net/question/rss">
+  <style type="text/css">
+    body,table,input,textarea,select {font-family:微软雅黑,Verdana,sans-serif,宋体;}	
+  </style>
+  <script type="text/javascript">
+  	scrolltotop.offset(100,120);
+	scrolltotop.init();
+  </script>
+<style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }</style><style type="text/css">.dp-c .vars { color: #d00; }</style><style id="poshytip-css-tip-yellowsimple" type="text/css">div.tip-yellowsimple{visibility:hidden;position:absolute;top:0;left:0;}div.tip-yellowsimple table, div.tip-yellowsimple td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;}div.tip-yellowsimple td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellowsimple td.tip-right{background-position:100% 0;}div.tip-yellowsimple td.tip-bottom{background-position:100% 100%;}div.tip-yellowsimple td.tip-left{background-position:0 100%;}div.tip-yellowsimple div.tip-inner{background-position:-10px -10px;}div.tip-yellowsimple div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}</style><link href="http://www.oschina.net/js/ke/themes/default/default.css" rel="stylesheet"><link href="http://www.oschina.net/js/ke/themes/oschina/oschina.css" rel="stylesheet"><link type="text/css" rel="stylesheet" href="chrome-extension://cpngackimfmofbokmjmljamhdncknpmg/style.css"><script type="text/javascript" charset="utf-8" src="chrome-extension://cpngackimfmofbokmjmljamhdncknpmg/page_context.js"></script></head>
+<body screen_capture_injected="true">
+<div id="OSC_Screen">
+	<div id="OSC_Banner2">
+        <div id="OSC_Channels">
+        	<ul>
+        	<li><a href="http://www.oschina.net/" class="home">首页</a></li>
+        	<li><a href="http://www.oschina.net/project" class="project">开源软件</a></li>
+        	<li><a href="http://www.oschina.net/question" class="question">讨论区</a></li>
+        	<li><a href="http://www.oschina.net/code/list" class="code">代码分享</a></li>
+        	<li><a href="http://www.oschina.net/news" class="news">资讯</a></li>
+        	<li><a href="http://www.oschina.net/blog" class="blog">博客</a></li>
+        	<li><a href="http://www.oschina.net/android" class="mobile">Android</a></li>
+        	<li class="t_job"><a href="http://www.oschina.net/job" class="job">招聘</a><div class="job_hot"></div></li>
+        	</ul>
+        </div>
+		<div id="OSC_UserBar">			
+    		    		当前访客身份：游客 [ <a href="http://www.oschina.net/home/login">登录</a> | <a href="http://www.oschina.net/home/reg">加入开源中国</a> ]
+    				</div>
+        <div class="clear"></div>
+	</div>
+	<div id="OSC_Topbar">
+		<div id="VisitorInfo">
+			当前位置：<a href="http://www.oschina.net/question">讨论区</a>&nbsp;»
+			<a href="http://www.oschina.net/question?catalog=2">技术分享</a>
+																						»&nbsp;<a href="http://www.oschina.net/android/1/android">Android开发专区</a>
+										»&nbsp;<a href="http://www.oschina.net/android/4/android-dev-ui">用户界面</a>
+								»&nbsp;<a href="http://www.oschina.net/android/33/notification">Notification</a>
+									</div>
+		<div id="SearchBar">
+    		<form action="http://www.oschina.net/search">
+																<input type="text" id="txt_q" name="q" class="SERACH" value="在所有的问题中搜索" onblur="(this.value==&#39;&#39;)?this.value=&#39;在所有的问题中搜索&#39;:this.value" onfocus="if(this.value==&#39;在所有的问题中搜索&#39;){this.value=&#39;&#39;;};this.select();">				
+    			<select name="scope">
+					                    <option value="project">软件</option>
+                    <option value="code">代码</option>
+                    <option value="bbs" selected="">讨论区</option>
+                    <option value="news">新闻</option>
+                    <option value="blog">博客</option>
+				</select>
+				<input type="submit" class="SUBMIT" value="搜索">
+    		</form>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div id="OSC_Content"><div class="Question">
+	<div class="Title">
+		<div class="Asker"><a href="http://my.oschina.net/chen106106" class="ShowUserOutline" target="_blank"><img src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/234345_50.jpg" align="absmiddle" alt="晨曦之光" title="晨曦之光" class="SmallPortrait" user="234345"></a></div>
+		<div class="QTitle">
+			<h1><a href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区.htm" hidefocus="true" name="top">【Android】状态栏通知Notification、NotificationManager详解</a></h1>
+			<div class="stat">
+				<a href="http://my.oschina.net/chen106106" target="_blank">晨曦之光</a>
+				发表于 3-1 19:59 8个月前,
+				<a href="http://www.oschina.net/question/234345_40111#answers" class="answer_count">1</a>回/3179阅,
+				最后回答: 2个月前											</div>
+		</div>
+		<div class="Context">
+			<strong>
+				<a href="http://www.oschina.net/question">讨论区</a>&nbsp;»
+				<a href="http://www.oschina.net/question?catalog=2" class="backtolist">技术分享</a>
+			</strong>
+        	
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="Body">
+		    	    			
+				<p style="color:#A00;font-weight:bold;margin:10px 0 0 3px;">【珠海】 11月25日（周日下午）OSC 源创会 <a href="http://www.oschina.net/question/28_78144" target="_blank">我要报名»</a></p>		<div class="Content">
+						<div class="detail"><p>在Android系统中，发一个状态栏通知还是很方便的。下面我们就来看一下，怎么发送状态栏通知，状态栏通知又有哪些参数可以设置？</p> 
+<p>&nbsp;</p> 
+<p>首先，发送一个状态栏通知必须用到两个类： &nbsp;NotificationManager 、&nbsp;Notification。</p> 
+<p>&nbsp;</p> 
+<p>NotificationManager&nbsp;： &nbsp;是状态栏通知的管理类，负责发通知、清楚通知等。</p> 
+<p>NotificationManager 是一个系统Service，必须通过&nbsp;<code>getSystemService()方法来获取。</code></p> 
+<p></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>NotificationManager&nbsp;nm&nbsp;=&nbsp;(NotificationManager)&nbsp;getSystemService(NOTIFICATION_SERVICE);&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</pre>&nbsp;
+<p></p> 
+<p>&nbsp;</p> 
+<p>&nbsp;</p> 
+<p>Notification：是具体的状态栏通知对象，可以设置icon、文字、提示声音、振动等等参数。</p> 
+<p>&nbsp;</p> 
+<p>下面是设置一个通知需要的基本参数：</p> 
+<p>&nbsp;</p> 
+<ul> 
+ <li>An icon &nbsp;(通知的图标)</li> 
+ <li>A title and expanded message &nbsp;(通知的标题和内容)</li> 
+ <li>A&nbsp;<code>PendingIntent&nbsp;&nbsp; (点击通知执行页面跳转)</code></li> 
+</ul> 
+<p>&nbsp;</p> 
+<p>可选的设置：</p> 
+<p>&nbsp;</p> 
+<ul> 
+ <li>A ticker-text message (状态栏顶部提示消息)</li> 
+ <li>An alert sound &nbsp; &nbsp;(提示音)</li> 
+ <li>A vibrate setting &nbsp;(振动)</li> 
+ <li>A flashing LED setting &nbsp;(灯光)</li> 
+ <li>等等</li> 
+</ul> 
+<p>&nbsp;</p> 
+<p>一、创建Notification</p> 
+<p><span style="white-space: pre;"> </span>通过NotificationManager &nbsp;的&nbsp;<span style="font-family: mceinline;">notify(int, Notification) 方法来启动Notification。</span></p> 
+<p><span style="font-family: mceinline;"><span style="white-space:pre"> </span>&nbsp;&nbsp;&nbsp;第一个参数唯一的标识该Notification，第二个参数就是Notification对象。</span></p> 
+<p>二、更新Notification</p> 
+<p><span style="white-space:pre"> 调用Notification的 setLatestEventInfo方法来更新内容，然后再调用NotificationManager的notify()方法即可。(具体可以看下面的实例)</span></p> 
+<p>&nbsp;</p> 
+<p>三、删除Notification</p> 
+<p><span style="white-space:pre"> </span>通过NotificationManager &nbsp;的<code>cancel(int)方法，来清除某个通知。其中参数就是</code>Notification的唯一标识ID。</p> 
+<p><span style="white-space:pre"> </span>当然也可以通过&nbsp;&nbsp;<code>cancelAll()&nbsp;来清除状态栏所有的通知。</code></p> 
+<p>&nbsp;</p> 
+<p>四、Notification设置(振动、铃声等)</p> 
+<p>&nbsp;</p> 
+<p><span style="white-space:pre">1. <span style="white-space: normal;">基本设置：</span></span>&nbsp;</p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "> </span><span style="font-family: monospace; font-size: x-small;"><span style="white-space: pre-wrap;"></span></span></span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="comment">//新建状态栏通知</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>baseNF&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Notification();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">//设置通知在状态栏显示的图标</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>baseNF.icon&nbsp;=&nbsp;R.drawable.icon;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">//通知时在状态栏显示的内容</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>baseNF.tickerText&nbsp;=&nbsp;<span class="string">"You&nbsp;clicked&nbsp;BaseNF!"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">//通知的默认参数&nbsp;DEFAULT_SOUND,&nbsp;DEFAULT_VIBRATE,&nbsp;DEFAULT_LIGHTS.&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">//如果要全部采用默认值,&nbsp;用&nbsp;DEFAULT_ALL.</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">//此处采用默认声音</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>baseNF.defaults&nbsp;=&nbsp;Notification.DEFAULT_SOUND;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">//第二个参数&nbsp;：下拉状态栏时显示的消息标题&nbsp;expanded&nbsp;message&nbsp;title</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">//第三个参数：下拉状态栏时显示的消息内容&nbsp;expanded&nbsp;message&nbsp;text</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">//第四个参数：点击该通知时执行页面跳转</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>baseNF.setLatestEventInfo(Lesson_10.<span class="keyword">this</span><span>,&nbsp;</span><span class="string">"Title01"</span><span>,&nbsp;</span><span class="string">"Content01"</span><span>,&nbsp;pd);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">//发出状态栏通知</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">//The&nbsp;first&nbsp;parameter&nbsp;is&nbsp;the&nbsp;unique&nbsp;ID&nbsp;for&nbsp;the&nbsp;Notification&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">//&nbsp;and&nbsp;the&nbsp;second&nbsp;is&nbsp;the&nbsp;Notification&nbsp;object.</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>nm.notify(Notification_ID_BASE,&nbsp;baseNF);&nbsp;&nbsp;</span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">					//新建状态栏通知
+					baseNF = new Notification();
+					 
+					//设置通知在状态栏显示的图标
+					baseNF.icon = R.drawable.icon;
+					
+					//通知时在状态栏显示的内容
+					baseNF.tickerText = "You clicked BaseNF!";
+					
+					//通知的默认参数 DEFAULT_SOUND, DEFAULT_VIBRATE, DEFAULT_LIGHTS. 
+					//如果要全部采用默认值, 用 DEFAULT_ALL.
+					//此处采用默认声音
+					baseNF.defaults = Notification.DEFAULT_SOUND;
+					
+					//第二个参数 ：下拉状态栏时显示的消息标题 expanded message title
+					//第三个参数：下拉状态栏时显示的消息内容 expanded message text
+					//第四个参数：点击该通知时执行页面跳转
+					baseNF.setLatestEventInfo(Lesson_10.this, "Title01", "Content01", pd);
+					
+					//发出状态栏通知
+					//The first parameter is the unique ID for the Notification 
+					// and the second is the Notification object.
+					nm.notify(Notification_ID_BASE, baseNF);</pre> 
+<p></p> 
+<p><span style="white-space:pre"><span style="white-space: normal;"><span style="white-space:pre"> </span>配一张图作说明:</span></span></p> 
+<p><span style="white-space:pre"><span style="white-space: normal;"><span style="white-space:pre"> </span></span></span></p> 
+<p><span style="white-space:pre"> <a href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/01195914_DeAS.gif" target="_blank"><img src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/01195914_DeAS.gif" alt="" style="cursor: pointer;"></a></span></p> 
+<p>&nbsp;</p> 
+<p>2. 添加声音</p> 
+<p><span style="white-space:pre"> </span>如果要采用默认声音，只要使用default就可以了。</p> 
+<p><span style="white-space:pre"> </span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>baseNF.defaults&nbsp;=&nbsp;Notification.DEFAULT_SOUND;&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">baseNF.defaults = Notification.DEFAULT_SOUND;</pre>&nbsp;
+<p></p> 
+<p><span style="white-space:pre"> </span>如果要使用自定义声音，那么就要用到sound了。如下：</p> 
+<p><span style="white-space:pre"> </span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>notification.sound&nbsp;=&nbsp;Uri.parse(</span><span class="string">"file:///sdcard/notification/ringer.mp3"</span><span>);&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">notification.sound = Uri.parse("file:///sdcard/notification/ringer.mp3");</pre>&nbsp;
+<p></p> 
+<p><span style="white-space:pre"> </span>上面这种方法，使用的是自己的铃声，如果想用系统自带的铃声，可以这样：</p> 
+<p><span style="white-space:pre"> </span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>notification.sound&nbsp;=&nbsp;Uri.withAppendedPath(Audio.Media.INTERNAL_CONTENT_URI,&nbsp;</span><span class="string">"6"</span><span>);&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">notification.sound = Uri.withAppendedPath(Audio.Media.INTERNAL_CONTENT_URI, "6");</pre>&nbsp;
+<p></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space:pre"><span style="white-space:pre"> </span><span style="white-space: normal;">需要注意一点，如果default、sound同时出现，那么sound无效，会使用默认铃声。</span></span></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space:pre"><span style="white-space: pre;"><span style="white-space: pre;"> </span><span style="white-space: normal;">默认情况下，通知的声音播放一遍就会结束。 如果你想让声音循环播放，需要为flags参数加上</span></span></span>FLAG_INSISTENT。 这样声音会到用户响应才结束，比如下拉状态栏。</p> 
+<p><span style="white-space: pre;"> </span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>notification.flags&nbsp;|=&nbsp;notification.FLAG_INSISTENT;&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">notification.flags |= notification.FLAG_INSISTENT;</pre>&nbsp;
+<p></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space:pre"><span style="white-space: normal;">3. 添加振动</span></span></p> 
+<p><span style="white-space:pre"><span style="white-space: normal;"><span style="white-space:pre"> </span>如果是使用默认的振动方式，那么同样也是使用default。</span></span></p> 
+<p><span style="white-space:pre"><span style="white-space: normal;"><span style="white-space:pre"> </span></span></span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>notification.defaults&nbsp;|=&nbsp;Notification.DEFAULT_VIBRATE;&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">notification.defaults |= Notification.DEFAULT_VIBRATE;</pre>&nbsp;
+<p></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space:pre"> </span><span style="white-space: normal;">当然也可以自己定义振动形式，这边需要用到Long型数组。&nbsp;</span></span></span></p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;"><span style="white-space: pre;"> </span></span></span></span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">long</span><span>[]&nbsp;vibrate&nbsp;=&nbsp;{</span><span class="number">0</span><span>,</span><span class="number">100</span><span>,</span><span class="number">200</span><span>,</span><span class="number">300</span><span>};&nbsp;&nbsp;</span></span></li><li class=""><span>notification.vibrate&nbsp;=&nbsp;vibrate;&nbsp;&nbsp;</span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">long[] vibrate = {0,100,200,300};
+notification.vibrate = vibrate;</pre>&nbsp;
+<p></p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;"><span style="white-space: pre;"> </span>这边的Long型数组中，第一个参数是开始振动前等待的时间，第二个参数是第一次振动的时间，第三个参数是第二次振动的时间，以此类推，随便定义多长的数组。但是采用这种方法，没有办法做到重复振动。</span></span></span></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space: pre;"><span style="white-space: pre;"> </span><span style="white-space: normal;">同样，如果default、vibrate同时出现时，会采用默认形式。</span></span></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;"><span style="white-space: pre;"> </span>另外还需要注意一点：使用振动器时需要权限，如下：</span></span></span></p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;"><span style="white-space: pre;"> </span></span></span></span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-xml"><li class="alt"><span><span class="tag">&lt;</span><span class="tag-name">uses-permission</span><span>&nbsp;</span><span class="attribute">android:name</span><span>=</span><span class="attribute-value">"android.permission.VIBRATE"</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">uses-permission</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="xhtml" style="display: none;"> &lt;uses-permission android:name="android.permission.VIBRATE"&gt;&lt;/uses-permission&gt;</pre>&nbsp;
+<p></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;">4. 闪光</span></span></span></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space: pre;"> </span>使用默认的灯光，如下：</p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;"><span style="white-space: pre;"> <span style="white-space: pre;"> </span></span></span></span></span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>notification.defaults&nbsp;|=&nbsp;Notification.DEFAULT_LIGHTS;&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">notification.defaults |= Notification.DEFAULT_LIGHTS;</pre> 
+<p></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;"><span style="white-space: pre;"><span style="white-space: pre;"><span style="white-space: pre;"> </span>自定义</span>：</span></span></span></span></p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;"><span style="white-space: pre;"><span style="white-space: pre;"> </span><span style="font-family: monospace; font-size: x-small;"><span style="white-space: pre-wrap;"></span></span></span></span></span></span></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span>notification.ledARGB&nbsp;=&nbsp;</span><span class="number">0xff00ff00</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>notification.ledOnMS&nbsp;=&nbsp;<span class="number">300</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>notification.ledOffMS&nbsp;=&nbsp;<span class="number">1000</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>notification.flags&nbsp;|=&nbsp;Notification.FLAG_SHOW_LIGHTS;&nbsp;&nbsp;</span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">notification.ledARGB = 0xff00ff00;
+notification.ledOnMS = 300;
+notification.ledOffMS = 1000;
+notification.flags |= Notification.FLAG_SHOW_LIGHTS;</pre> 
+<p></p> 
+<p><span style="white-space:pre"><span style="white-space: pre; "><span style="white-space: normal;"><span style="white-space: pre;"><span style="white-space: pre;"> </span>其中</span></span></span></span>ledARGB 表示灯光颜色、&nbsp;ledOnMS 亮持续时间、ledOffMS 暗的时间。</p> 
+<p><span style="white-space: pre;"> </span>注意：这边的颜色跟设备有关，不是所有的颜色都可以，要看具体设备。</p> 
+<p>&nbsp;</p> 
+<p>5.&nbsp;其他有用的设置：</p> 
+<p><span style="white-space: pre;"> flags</span>：</p> 
+<p><span style="white-space: pre;"> Notification.FLAG_INSISTENT;</span>&nbsp;<span style="white-space: pre;"> </span>&nbsp;//让声音、振动无限循环，直到用户响应</p> 
+<p><span style="white-space: pre;"> Notification.FLAG_AUTO_CANCEL;</span>&nbsp;&nbsp; <span style="white-space: pre;"> </span>&nbsp;<span style="white-space: pre;">//通知被点击后，自动消失</span></p> 
+<p><span style="white-space: pre;"> Notification.FLAG_NO_CLEAR; </span>&nbsp;<span style="white-space: pre;">//点击'Clear'时，不清楚该通知(QQ的通知无法清除，就是用的这个)</span></p> 
+<p>&nbsp;</p> 
+<p> </p> 
+<hr> 
+<p></p> 
+<p>&nbsp;</p> 
+<p><span style="white-space: pre;">下面附上我做的例子，供大家参考。 里面包括创建通知、更新通知、清除通知、设置自定义铃声、自定义振动、自定义通知视图等。</span></p> 
+<p><a href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/01195915_ewnD.gif" target="_blank"><img src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/01195915_ewnD.gif" alt="" style="cursor: pointer;"></a>&nbsp;&nbsp;<a href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/01195915_mSC9.gif" target="_blank"><img src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/01195915_mSC9.gif" alt="" style="cursor: pointer;"></a></p> 
+<p>&nbsp;</p> 
+<p>&nbsp;</p> 
+<p>附上代码：</p> 
+<p>&nbsp;</p> 
+<p>主类：</p> 
+<p></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-j"><li class="alt"><span><span class="keyword">package</span><span>&nbsp;com.yfz;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;android.app.Activity;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;android.app.Notification;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;android.app.NotificationManager;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;android.app.PendingIntent;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;android.content.Intent;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;android.net.Uri;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;android.os.Bundle;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;android.provider.MediaStore.Audio;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;android.util.Log;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;android.view.View;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;android.view.View.OnClickListener;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;android.widget.Button;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;android.widget.RemoteViews;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">import</span><span>&nbsp;android.widget.SeekBar;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">import</span><span>&nbsp;android.widget.TextView;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="comment">/**</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*&nbsp;Notification</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;*&nbsp;@author&nbsp;Administrator</span>&nbsp;</span></li><li class=""><span><span class="comment">&nbsp;*</span>&nbsp;</span></li><li class="alt"><span><span class="comment">&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;Lesson_10&nbsp;</span><span class="keyword">extends</span><span>&nbsp;Activity&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//BaseNotification</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Button&nbsp;bt01;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//UpdateBaseNotification</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Button&nbsp;bt02;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//ClearBaseNotification</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Button&nbsp;bt03;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//MediaNotification</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Button&nbsp;bt04;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//ClearMediaNotification</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Button&nbsp;bt05;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//ClearALL</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Button&nbsp;bt06;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//CustomNotification</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Button&nbsp;bt07;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//通知管理器</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;NotificationManager&nbsp;nm;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//通知显示内容</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;PendingIntent&nbsp;pd;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation">@Override</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">super</span><span>.onCreate(savedInstanceState);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*加载页面*/</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setContentView(R.layout.lesson10);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;init();&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;init()&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt01&nbsp;=&nbsp;(Button)findViewById(R.id.le10bt01);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt02&nbsp;=&nbsp;(Button)findViewById(R.id.le10bt02);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt03&nbsp;=&nbsp;(Button)findViewById(R.id.le10bt03);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt04&nbsp;=&nbsp;(Button)findViewById(R.id.le10bt04);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt05&nbsp;=&nbsp;(Button)findViewById(R.id.le10bt05);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt06&nbsp;=&nbsp;(Button)findViewById(R.id.le10bt06);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt07&nbsp;=&nbsp;(Button)findViewById(R.id.le10bt07);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt01.setOnClickListener(onclick);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt02.setOnClickListener(onclick);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt03.setOnClickListener(onclick);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt04.setOnClickListener(onclick);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt05.setOnClickListener(onclick);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt06.setOnClickListener(onclick);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bt07.setOnClickListener(onclick);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nm&nbsp;=&nbsp;(NotificationManager)&nbsp;getSystemService(NOTIFICATION_SERVICE);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Intent&nbsp;intent&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Intent(</span><span class="keyword">this</span><span>,Lesson_10.</span><span class="keyword">class</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pd&nbsp;=&nbsp;PendingIntent.getActivity(Lesson_10.<span class="keyword">this</span><span>,&nbsp;</span><span class="number">0</span><span>,&nbsp;intent,&nbsp;</span><span class="number">0</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;OnClickListener&nbsp;onclick&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;OnClickListener()&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//BASE&nbsp;Notification&nbsp;ID</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;Notification_ID_BASE&nbsp;=&nbsp;</span><span class="number">110</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Notification&nbsp;baseNF;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//Notification&nbsp;ID</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;Notification_ID_MEDIA&nbsp;=&nbsp;</span><span class="number">119</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">private</span><span>&nbsp;Notification&nbsp;mediaNF;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="annotation">@Override</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;onClick(View&nbsp;v)&nbsp;{&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">switch</span><span>(v.getId())&nbsp;{&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;R.id.le10bt01:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//新建状态栏通知</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Notification();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//设置通知在状态栏显示的图标</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.icon&nbsp;=&nbsp;R.drawable.icon;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//通知时在状态栏显示的内容</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.tickerText&nbsp;=&nbsp;<span class="string">"You&nbsp;clicked&nbsp;BaseNF!"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//通知的默认参数&nbsp;DEFAULT_SOUND,&nbsp;DEFAULT_VIBRATE,&nbsp;DEFAULT_LIGHTS.&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//如果要全部采用默认值,&nbsp;用&nbsp;DEFAULT_ALL.</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//此处采用默认声音</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.defaults&nbsp;|=&nbsp;Notification.DEFAULT_SOUND;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.defaults&nbsp;|=&nbsp;Notification.DEFAULT_VIBRATE;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.defaults&nbsp;|=&nbsp;Notification.DEFAULT_LIGHTS;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//让声音、振动无限循环，直到用户响应</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.flags&nbsp;|=&nbsp;Notification.FLAG_INSISTENT;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//通知被点击后，自动消失</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.flags&nbsp;|=&nbsp;Notification.FLAG_AUTO_CANCEL;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//点击'Clear'时，不清楚该通知(QQ的通知无法清除，就是用的这个)</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.flags&nbsp;|=&nbsp;Notification.FLAG_NO_CLEAR;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//第二个参数&nbsp;：下拉状态栏时显示的消息标题&nbsp;expanded&nbsp;message&nbsp;title</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//第三个参数：下拉状态栏时显示的消息内容&nbsp;expanded&nbsp;message&nbsp;text</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//第四个参数：点击该通知时执行页面跳转</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.setLatestEventInfo(Lesson_10.<span class="keyword">this</span><span>,&nbsp;</span><span class="string">"Title01"</span><span>,&nbsp;</span><span class="string">"Content01"</span><span>,&nbsp;pd);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//发出状态栏通知</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//The&nbsp;first&nbsp;parameter&nbsp;is&nbsp;the&nbsp;unique&nbsp;ID&nbsp;for&nbsp;the&nbsp;Notification&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;and&nbsp;the&nbsp;second&nbsp;is&nbsp;the&nbsp;Notification&nbsp;object.</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nm.notify(Notification_ID_BASE,&nbsp;baseNF);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;R.id.le10bt02:&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//更新通知</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//比如状态栏提示有一条新短信，还没来得及查看，又来一条新短信的提示。</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//此时采用更新原来通知的方式比较。</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//(再重新发一个通知也可以，但是这样会造成通知的混乱，而且显示多个通知给用户，对用户也不友好)</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseNF.setLatestEventInfo(Lesson_10.<span class="keyword">this</span><span>,&nbsp;</span><span class="string">"Title02"</span><span>,&nbsp;</span><span class="string">"Content02"</span><span>,&nbsp;pd);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nm.notify(Notification_ID_BASE,&nbsp;baseNF);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;R.id.le10bt03:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//清除&nbsp;baseNF</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nm.cancel(Notification_ID_BASE);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;R.id.le10bt04:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mediaNF&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Notification();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mediaNF.icon&nbsp;=&nbsp;R.drawable.icon;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mediaNF.tickerText&nbsp;=&nbsp;<span class="string">"You&nbsp;clicked&nbsp;MediaNF!"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//自定义声音</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mediaNF.sound&nbsp;=&nbsp;Uri.withAppendedPath(Audio.Media.INTERNAL_CONTENT_URI,&nbsp;<span class="string">"6"</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//通知时发出的振动</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//第一个参数:&nbsp;振动前等待的时间</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//第二个参数：&nbsp;第一次振动的时长、以此类推</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">long</span><span>[]&nbsp;vir&nbsp;=&nbsp;{</span><span class="number">0</span><span>,</span><span class="number">100</span><span>,</span><span class="number">200</span><span>,</span><span class="number">300</span><span>};&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mediaNF.vibrate&nbsp;=&nbsp;vir;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mediaNF.setLatestEventInfo(Lesson_10.<span class="keyword">this</span><span>,&nbsp;</span><span class="string">"Title03"</span><span>,&nbsp;</span><span class="string">"Content03"</span><span>,&nbsp;pd);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nm.notify(Notification_ID_MEDIA,&nbsp;mediaNF);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;R.id.le10bt05:&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//清除&nbsp;mediaNF</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nm.cancel(Notification_ID_MEDIA);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;R.id.le10bt06:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nm.cancelAll();&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">case</span><span>&nbsp;R.id.le10bt07:&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//自定义下拉视图，比如下载软件时，显示的进度条。</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notification&nbsp;notification&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Notification();&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notification.icon&nbsp;=&nbsp;R.drawable.icon;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notification.tickerText&nbsp;=&nbsp;<span class="string">"Custom!"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RemoteViews&nbsp;contentView&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;RemoteViews(getPackageName(),&nbsp;R.layout.custom);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contentView.setImageViewResource(R.id.image,&nbsp;R.drawable.icon);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contentView.setTextViewText(R.id.text,&nbsp;<span class="string">"Hello,&nbsp;this&nbsp;message&nbsp;is&nbsp;in&nbsp;a&nbsp;custom&nbsp;expanded&nbsp;view"</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notification.contentView&nbsp;=&nbsp;contentView;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//使用自定义下拉视图时，不需要再调用setLatestEventInfo()方法</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//但是必须定义&nbsp;contentIntent</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notification.contentIntent&nbsp;=&nbsp;pd;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nm.notify(<span class="number">3</span><span>,&nbsp;notification);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">break</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li></ol></div><pre cols="50" rows="15" name="code" class="java" style="display: none;">package com.yfz;
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore.Audio;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RemoteViews;
+import android.widget.SeekBar;
+import android.widget.TextView;
+/**
+ * Notification
+ * @author Administrator
+ *
+ */
+public class Lesson_10 extends Activity {
+	
+	//BaseNotification
+	private Button bt01;
+	
+	//UpdateBaseNotification
+	private Button bt02;
+	
+	//ClearBaseNotification
+	private Button bt03;
+	
+	//MediaNotification
+	private Button bt04;
+	
+	//ClearMediaNotification
+	private Button bt05;
+	
+	//ClearALL
+	private Button bt06;
+	
+	//CustomNotification
+	private Button bt07;
+	
+	//通知管理器
+	private NotificationManager nm;
+	
+	//通知显示内容
+	private PendingIntent pd;
+	
+	@Override
+	 public void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        /*加载页面*/
+	        setContentView(R.layout.lesson10);
+	        
+	        init();
+	}
+	
+	private void init() {
+		bt01 = (Button)findViewById(R.id.le10bt01);
+		bt02 = (Button)findViewById(R.id.le10bt02);
+		bt03 = (Button)findViewById(R.id.le10bt03);
+		bt04 = (Button)findViewById(R.id.le10bt04);
+		bt05 = (Button)findViewById(R.id.le10bt05);
+		bt06 = (Button)findViewById(R.id.le10bt06);
+		bt07 = (Button)findViewById(R.id.le10bt07);
+		
+		bt01.setOnClickListener(onclick);
+		bt02.setOnClickListener(onclick);
+		bt03.setOnClickListener(onclick);
+		bt04.setOnClickListener(onclick);
+		bt05.setOnClickListener(onclick);
+		bt06.setOnClickListener(onclick);	
+		bt07.setOnClickListener(onclick);
+		
+		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		
+		Intent intent = new Intent(this,Lesson_10.class);
+		
+		pd = PendingIntent.getActivity(Lesson_10.this, 0, intent, 0);
+	}
+	
+	OnClickListener onclick = new OnClickListener() {
+		
+		//BASE Notification ID
+		private int Notification_ID_BASE = 110;
+		
+		private Notification baseNF;
+		
+		//Notification ID
+		private int Notification_ID_MEDIA = 119;
+		
+		private Notification mediaNF;
+		
+		@Override
+		public void onClick(View v) {
+			switch(v.getId()) {
+				case R.id.le10bt01:
+					//新建状态栏通知
+					baseNF = new Notification();
+					 
+					//设置通知在状态栏显示的图标
+					baseNF.icon = R.drawable.icon;
+					
+					//通知时在状态栏显示的内容
+					baseNF.tickerText = "You clicked BaseNF!";
+					
+					//通知的默认参数 DEFAULT_SOUND, DEFAULT_VIBRATE, DEFAULT_LIGHTS. 
+					//如果要全部采用默认值, 用 DEFAULT_ALL.
+					//此处采用默认声音
+					baseNF.defaults |= Notification.DEFAULT_SOUND;
+					baseNF.defaults |= Notification.DEFAULT_VIBRATE;
+					baseNF.defaults |= Notification.DEFAULT_LIGHTS;
+					
+					//让声音、振动无限循环，直到用户响应
+					baseNF.flags |= Notification.FLAG_INSISTENT;
+					
+					//通知被点击后，自动消失
+					baseNF.flags |= Notification.FLAG_AUTO_CANCEL;
+					
+					//点击'Clear'时，不清楚该通知(QQ的通知无法清除，就是用的这个)
+					baseNF.flags |= Notification.FLAG_NO_CLEAR;
+					
+					
+					//第二个参数 ：下拉状态栏时显示的消息标题 expanded message title
+					//第三个参数：下拉状态栏时显示的消息内容 expanded message text
+					//第四个参数：点击该通知时执行页面跳转
+					baseNF.setLatestEventInfo(Lesson_10.this, "Title01", "Content01", pd);
+					
+					//发出状态栏通知
+					//The first parameter is the unique ID for the Notification 
+					// and the second is the Notification object.
+					nm.notify(Notification_ID_BASE, baseNF);
+					
+					break;
+					
+				case R.id.le10bt02:
+					//更新通知
+					//比如状态栏提示有一条新短信，还没来得及查看，又来一条新短信的提示。
+					//此时采用更新原来通知的方式比较。
+					//(再重新发一个通知也可以，但是这样会造成通知的混乱，而且显示多个通知给用户，对用户也不友好)
+					baseNF.setLatestEventInfo(Lesson_10.this, "Title02", "Content02", pd);
+					nm.notify(Notification_ID_BASE, baseNF);
+					break;
+					
+				case R.id.le10bt03:
+					
+					//清除 baseNF
+					nm.cancel(Notification_ID_BASE);
+					break;
+					
+				case R.id.le10bt04:
+					mediaNF = new Notification();
+					mediaNF.icon = R.drawable.icon;
+					mediaNF.tickerText = "You clicked MediaNF!";
+					
+					//自定义声音
+					mediaNF.sound = Uri.withAppendedPath(Audio.Media.INTERNAL_CONTENT_URI, "6");
+					
+					//通知时发出的振动
+					//第一个参数: 振动前等待的时间
+					//第二个参数： 第一次振动的时长、以此类推
+					long[] vir = {0,100,200,300};
+					mediaNF.vibrate = vir;
+					
+					mediaNF.setLatestEventInfo(Lesson_10.this, "Title03", "Content03", pd);
+					
+					nm.notify(Notification_ID_MEDIA, mediaNF);
+					break;
+					
+				case R.id.le10bt05:
+					//清除 mediaNF
+					nm.cancel(Notification_ID_MEDIA);
+					break;
+					
+				case R.id.le10bt06:
+					nm.cancelAll();
+					break;
+					
+				case R.id.le10bt07:
+					//自定义下拉视图，比如下载软件时，显示的进度条。
+					Notification notification = new Notification();
+					
+					notification.icon = R.drawable.icon;
+					notification.tickerText = "Custom!";
+					
+					RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.custom);
+					contentView.setImageViewResource(R.id.image, R.drawable.icon);
+					contentView.setTextViewText(R.id.text, "Hello, this message is in a custom expanded view");
+					notification.contentView = contentView;
+					
+					//使用自定义下拉视图时，不需要再调用setLatestEventInfo()方法
+					//但是必须定义 contentIntent
+					notification.contentIntent = pd;
+					
+					nm.notify(3, notification);
+					break;
+			}
+		}
+	};
+	
+	
+}</pre> 
+<p></p> 
+<p>&nbsp;</p> 
+<p>主页面：</p> 
+<p>&nbsp;</p> 
+<p></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-xml"><li class="alt"><span><span class="tag">&lt;?</span><span class="tag-name">xml</span><span>&nbsp;</span><span class="attribute">version</span><span>=</span><span class="attribute-value">"1.0"</span><span>&nbsp;</span><span class="attribute">encoding</span><span>=</span><span class="attribute-value">"utf-8"</span><span class="tag">?&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="tag">&lt;</span><span class="tag-name">LinearLayout</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;<span class="attribute">xmlns:android</span><span>=</span><span class="attribute-value">"http://schemas.android.com/apk/res/android"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;<span class="attribute">android:orientation</span><span>=</span><span class="attribute-value">"vertical"</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">Button</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/le10bt01"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:text</span><span>=</span><span class="attribute-value">"BaseNotification"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">Button</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/le10bt02"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:text</span><span>=</span><span class="attribute-value">"UpdateBaseNotification"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">Button</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/le10bt03"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:text</span><span>=</span><span class="attribute-value">"ClearBaseNotification"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">Button</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/le10bt04"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:text</span><span>=</span><span class="attribute-value">"MediaNotification"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">Button</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/le10bt05"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:text</span><span>=</span><span class="attribute-value">"ClearMediaNotification"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">Button</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/le10bt06"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:text</span><span>=</span><span class="attribute-value">"ClearALL"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">Button</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:id</span><span>=</span><span class="attribute-value">"@+id/le10bt07"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_width</span><span>=</span><span class="attribute-value">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:layout_height</span><span>=</span><span class="attribute-value">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">android:text</span><span>=</span><span class="attribute-value">"CustomNotification"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="tag">&lt;/</span><span class="tag-name">LinearLayout</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre cols="50" rows="15" name="code" class="xhtml" style="display: none;">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"&gt;
+	&lt;Button
+		android:id="@+id/le10bt01"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="BaseNotification"
+	/&gt;
+	&lt;Button
+		android:id="@+id/le10bt02"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="UpdateBaseNotification"
+	/&gt;
+	&lt;Button
+		android:id="@+id/le10bt03"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="ClearBaseNotification"
+	/&gt;
+	&lt;Button
+		android:id="@+id/le10bt04"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="MediaNotification"
+	/&gt;
+	&lt;Button
+		android:id="@+id/le10bt05"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="ClearMediaNotification"
+	/&gt;
+	&lt;Button
+		android:id="@+id/le10bt06"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="ClearALL"
+	/&gt;
+	&lt;Button
+		android:id="@+id/le10bt07"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="CustomNotification"
+	/&gt;
+&lt;/LinearLayout&gt;
+</pre> 
+<p></p> 
+<p>&nbsp;</p> 
+<p>自定义视图页面：</p> 
+<p></p>
+<div class="dp-highlighter"><div class="bar"><div class="tools"><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">源码</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">打印</a><a href="http://www.oschina.net/question/234345_40111#" onclick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">？</a></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>&lt;?xml&nbsp;version=</span><span class="string">"1.0"</span><span>&nbsp;encoding=</span><span class="string">"utf-8"</span><span>?&gt;&nbsp;&nbsp;</span></span></li><li class=""><span>&lt;LinearLayout&nbsp;xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:orientation=<span class="string">"horizontal"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_width=<span class="string">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_height=<span class="string">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:padding=<span class="string">"3dp"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;ImageView&nbsp;android:id=<span class="string">"@+id/image"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_width=<span class="string">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_height=<span class="string">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_marginRight=<span class="string">"10dp"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&gt;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;TextView&nbsp;android:id=<span class="string">"@+id/text"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_width=<span class="string">"wrap_content"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:layout_height=<span class="string">"fill_parent"</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:textColor=<span class="string">"#000"</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&gt;&nbsp;&nbsp;</span></li><li class=""><span>&lt;/LinearLayout&gt;&nbsp;&nbsp;</span></li></ol></div><pre cols="50" rows="15" name="code" class="c-sharp" style="display: none;">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="3dp"
+              &gt;
+    &lt;ImageView android:id="@+id/image"
+              android:layout_width="wrap_content"
+              android:layout_height="fill_parent"
+              android:layout_marginRight="10dp"
+              /&gt;
+    &lt;TextView android:id="@+id/text"
+              android:layout_width="wrap_content"
+              android:layout_height="fill_parent"
+              android:textColor="#000"
+              /&gt;
+&lt;/LinearLayout&gt;
+</pre> &nbsp;
+<p></p> 
+<p>&nbsp;</p> 
+<p>就讲这么多。</p> 
+<p><span style="white-space: pre;"><br></span></p>
+<link rel="stylesheet" href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/SyntaxHighlighter.css" type="text/css">
+<script src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/shCore.js"></script>
+<script src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/shSyntax.js"></script>
+<script>$(document).ready(function(){dp.SyntaxHighlighter.HighlightAll('code');});
+</script><br>原文链接：<a href="http://blog.csdn.net/feng88724/article/details/6259071" target="_blank">http://blog.csdn.net/feng88724/article/details/6259071</a><div class="clear"></div></div>
+						<div class="Tags">
+				<strong>标签：</strong>				
+												&lt;无&gt;
+											</div>
+						<div class="SameQuestions">
+			<span id="RQuestionAction">
+						<a href="javascript:make_question_more_detail(40111)">补充话题说明»</a>
+			</span></div>
+						<div class="EditLogs">
+	<ul></ul>
+</div>		</div>
+		<style type="text/css">
+		#favor_form{width:200px;}
+        #favor_form p {color:#666;}
+        #favor_form form{height:60px;width:200px;}
+        #favor_form form ._favor_input{display:block;margin:2px 0;width:199px;}
+        #favor_form form ._favor_button{float:left;padding:2px 5px;}
+        .favor_ok {text-align:center;font-size:10.5pt;width:199px;height:60px;margin-top:10px;}
+        #TagsSwitcher{cursor:pointer;float:right;margin-top:10px;}
+        #MyTags{display:none;width:199px;}
+        #MyTags a.tag {float:left; background-color: #E0EAF1;border-bottom: 1px solid #3E6D8E;border-right: 1px solid #7F9FB6;color: #3E6D8E;font-size: 8pt;line-height: 16px;margin: 2px 2px 2px 0;padding: 2px 4px;text-decoration: none;white-space: nowrap;}
+		.osc_promotion{ position: relative; display: inline-block; padding: 10px; margin: 10px 0; border: 1px solid #ccc;}
+        .osc_promotion .c{ position: absolute; right: -1px; top: -1px;}
+		.ask_toolbar {float:right;list-style: none; font-size: 12px; color: #333; height: 28px;_padding-top: 5px; overflow: hidden;margin:20px 0 10px 0;}
+        .ask_toolbar div{ float: left; margin-left: 5px; background: url("/img/ask-icon.gif") no-repeat; padding: 6px 0 6px 15px; padding-left: 15px; height: 16px;}
+        .ask_toolbar a{ height: 16px; color: #333; text-decoration: none; display:inline-block; zoom:1; vertical-align: middle; }
+        .ask_share{width: 89px;vertical-align: bottom; line-height: 15px; _line-height: 14px;}
+        .ask_share a{background: url("/img/ask-icon.gif"); width: 16px; }
+        a.ask_share_sina{ background: url("/img/ask-icon.gif") 0 -40px no-repeat; margin-left: 5px;  }
+        a.ask_share_tencent{background-position: 0 -70px; margin-left: 5px; }
+        .ask_toolbar em{ height: 28px; line-height:28px; width: 14px; display: inline-block; float: left; background: url("/img/ask-icon.gif") top right;}
+        .ask_collect a,.ask_report a, .ask_vote a, .ask_collected a{padding-left: 20px; line-height: 15px; }
+        .ask_collect a{ background: url("/img/ask-icon.gif") 0 -131px no-repeat; }
+        .ask_collected a{ background: url("/img/ask-icon.gif") 0 -100px no-repeat; }
+        div.ask_collect_count{ background: url("/img/ask-icon.gif") 0 -309px no-repeat; font-weight: bold; font-size: 14px; margin-left: 0; height: 16px;line-height: 16px;}
+        .ask_report a{ background: url("/img/ask-icon.gif") 0 -160px no-repeat;}
+        em.ask_collect_count_r{background-position: 59px -309px;}
+        .ask_vote a{background: url("/img/ask-icon.gif");}
+        		a.ask_vote_up{background-position: 3px -190px;}
+        a.ask_vote_down{background-position: 0 -280px;}
+        a.ask_vote_uped {background-position: 3px -190px;}
+        		a.ask_vote_downed {background-position: 0 -280px;}
+        .ask_vote span{ display: inline-block; margin: 0 10px; font-weight: bold; font-size: 14px; vertical-align: middle; margin-bottom: 2px; line-height: 16px;}
+		span.vote-down-count{margin:0 3px;}
+		span.vote-up-count{margin:0 3px;}
+		</style>
+		<div class="clear"></div>
+        
+				<div class="ask_toolbar">
+			<div class="ask_share"><b>分享到</b> <a class="ask_share_sina" title="分享到新浪微博" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=858381728',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','【Android】状态栏通知Notification、NotificationManager详解: 在Android系统中，发一个状态栏通知还是很方便的。下面我们就来看一下，怎么发送状态栏通知，状态栏通知又有哪些参数可以设置？   首先，发送一个状态栏通知必须用到两...','','utf-8'));"></a><a class="ask_share_tencent" title="分享到腾讯微博" href="javascript:(function(){window.open('http://v.t.qq.com/share/share.php?url='+encodeURIComponent(document.location)+'&appkey=96f54f97c4de46e393c4835a266207f4&site=&title='+encodeURIComponent(document.title)+encodeURIComponent(': 在Android系统中，发一个状态栏通知还是很方便的。下面我们就来看一下，怎么发送状态栏通知，状态栏通知又有哪些参数可以设置？   首先，发送一个状态栏通知必须用到两...'),'', 'width=450, height=400, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no');}())"></a></div><em></em>
+			<div class="ask_collect"><a title="收藏此话题" id="favor_trigger" href="javascript:;">收藏</a></div><em></em>
+			<div class="ask_collect_count" id="p_favor_count">4</div><em class="ask_collect_count_r"></em>
+			<div class="ask_report"><a href="javascript:report('http://www.oschina.net/question/234345_40111',40111,2)">举报</a></div><em></em>
+			<div class="ask_vote" id="Vote">
+								        			<a id="vote_down" class="ask_vote_down" href="javascript:;" title="踩：这问题不知道在说什么，或者没什么用">踩</a>
+								<span class="vote-down-count">0</span>
+				|
+								        			<a id="vote_up" class="ask_vote_up" href="javascript:;" title="顶：这问题很有用或者很清晰明了">顶</a>
+								<span class="vote-up-count">0</span>
+			</div>
+			<em></em>
+		</div>
+		<div class="clear"></div>
+				        <div class="QuestionReplies">
+			
+        	<h2>			
+				<span class="sort">
+					<a href="http://www.oschina.net/question/234345_40111#answers" class="current">按默认排序</a>&nbsp;|
+					<a href="http://www.oschina.net/question/234345_40111?sort=time#answers">显示最新评论</a>&nbsp;|&nbsp;<a href="http://www.oschina.net/question/234345_40111#top" style="padding-left:0;">回页面顶部</a>
+				</span>
+				<a name="answers"></a>共有<em class="answer_count">1</em>个评论 <a href="http://www.oschina.net/question/234345_40111#answerform" class="answer">发表评论»</a>
+			</h2>
+			        	<ul class="list"><li class="Answer" id="answer_300120">
+	<div class="user"><a href="http://my.oschina.net/logs" class="ShowUserOutline" name="AnchorAnswer300120" target="_blank"><img src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/216276_50.jpg" align="absmiddle" alt="茶码古道" title="茶码古道" class="SmallPortrait" user="216276"></a></div>
+	<div class="body">
+		<div class="time"><a href="http://my.oschina.net/logs" target="_blank">茶码古道</a> 回答于 2012-09-09 12:32 </div>		
+    	<div class="opts">
+			    		    		<a href="javascript:report('http://www.oschina.net/question/234345_40111#AnchorAnswer300120',300120,17)">举报</a>
+    	</div>
+		<div class="clear"></div>
+		<div class="detail">神级讲解，顶理膜拜中。。。。。。</div>
+	</div>
+	<div class="clear"></div>
+	<div class="replies" id="PostReplies_300120"></div>
+	<div class="votes">				<a id="a_post_voteup_300120" href="javascript:vote_answer(300120,true,true)" title="这是一个好评论，能解决问题">有帮助</a><em id="post_voteup_300120">(0)</em>&nbsp;|
+		<a id="a_post_votedown_300120" href="javascript:vote_answer(300120,false,true)" title="这评论无法解决问题，或者模糊不清">没帮助</a><em id="post_votedown_300120">(0)</em>&nbsp;|
+		<a href="javascript:reply_to_post(300120, 0)">评论</a><em>(0)</em>&nbsp;|
+    	<a href="http://www.oschina.net/question/answer?question=40111&answer=300120">引用此评论</a>	</div>
+</li></ul>
+				        </div> 
+		<div class="AnswerForm">
+			<div class="user"><a href="" name="answerform"><img src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/portrait.gif" align="absmiddle" alt="非会员用户" title="非会员用户" class="SmallPortrait" user=""></a></div>
+			<form id="form_answer" action="http://www.oschina.net/action/question/answer?question=40111" method="post">
+				<input type="hidden" name="user" value="${g_user.id}">
+				<div class="ke-container ke-container-oschina" style="width: 560px;"><div style="display:block;" class="ke-toolbar" unselectable="on"><span class="ke-outline" data-name="bold" title="粗体(Ctrl+B)" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-bold" unselectable="on"></span></span><span class="ke-outline" data-name="italic" title="斜体(Ctrl+I)" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-italic" unselectable="on"></span></span><span class="ke-outline" data-name="underline" title="下划线(Ctrl+U)" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-underline" unselectable="on"></span></span><span class="ke-outline" data-name="strikethrough" title="删除线" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-strikethrough" unselectable="on"></span></span><span class="ke-outline" data-name="removeformat" title="删除格式" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-removeformat" unselectable="on"></span></span><span class="ke-inline-block ke-separator"></span><span class="ke-outline" data-name="insertorderedlist" title="编号" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-insertorderedlist" unselectable="on"></span></span><span class="ke-outline" data-name="insertunorderedlist" title="项目符号" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-insertunorderedlist" unselectable="on"></span></span><span class="ke-outline" data-name="forecolor" title="文字颜色" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-forecolor" unselectable="on"></span></span><span class="ke-outline" data-name="hilitecolor" title="文字背景" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-hilitecolor" unselectable="on"></span></span><span class="ke-outline" data-name="fontname" title="字体" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-fontname" unselectable="on"></span></span><span class="ke-outline" data-name="fontsize" title="文字大小" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-fontsize" unselectable="on"></span></span><span class="ke-inline-block ke-separator"></span><span class="ke-outline" data-name="link" title="超级链接" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-link" unselectable="on"></span></span><span class="ke-outline" data-name="unlink" title="取消超级链接" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-unlink" unselectable="on"></span></span><span class="ke-outline" data-name="emoticons" title="插入表情" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-emoticons" unselectable="on"></span></span><span class="ke-outline" data-name="shcode" title="插入程序代码或脚本" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-shcode" unselectable="on"></span></span><span class="ke-outline" data-name="image" title="图片" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-image" unselectable="on"></span></span><span class="ke-outline" data-name="flash" title="Flash" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-flash" unselectable="on"></span></span><span class="ke-outline" data-name="quote" title="引用某段文字" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-quote" unselectable="on"></span></span><span class="ke-inline-block ke-separator"></span><span class="ke-outline" data-name="source" title="HTML代码" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-source" unselectable="on"></span></span><span class="ke-outline" data-name="about" title="关于" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-about" unselectable="on"></span></span></div><div style="display: block; height: 121px;" class="ke-edit"><iframe class="ke-edit-iframe" hidefocus="true" frameborder="0" style="width: 100%; height: 121px;"></iframe><textarea class="ke-edit-textarea" hidefocus="true" style="width: 100%; height: 121px; display: none;"></textarea></div><div class="ke-statusbar"><span class="ke-inline-block ke-statusbar-center-icon"></span><span class="ke-inline-block ke-statusbar-right-icon" style="visibility: hidden;"></span></div></div><textarea id="txt_answner" name="body" style="width: 560px; height: 160px; display: none;"></textarea>
+				<input type="submit" value=" 发表评论 " id="FormSubmitButton" class="rndbutton">
+				<span id="form_msg" style="display:none;"></span>
+				<br><br>
+				<a href="http://www.oschina.net/question/234345_40111#answers">回评论顶部</a>&nbsp;|&nbsp;<a href="http://www.oschina.net/question/234345_40111#top">回页面顶部</a>
+			</form>
+			<div class="clear"></div>
+		</div>
+	</div>	
+	<script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/brush.js"></script>
+<link type="text/css" rel="stylesheet" href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/shCore.css">
+<link type="text/css" rel="stylesheet" href="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/shThemeDefault.css">
+<script type="text/javascript"><!--
+$(document).ready(function(){
+	SyntaxHighlighter.config.clipboardSwf = '/js/syntax-highlighter-2.1.382/scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+});
+//-->
+</script>
+	<div class="QuestionRelations">
+		<div id="QuestionWizard">
+			有什么技术问题吗？
+			<a href="http://www.oschina.net/question/ask" class="rndbutton"><span>我要提问</span></a>
+			<div class="clear"></div>
+		</div>
+		
+						<div id="OtherQuestionsOfUser" class="Qlist">
+			<strong><a href="http://my.oschina.net/chen106106/?ft=bbs&scope=2&showme=1" class="more">全部(4827)...</a><em>晨曦之光</em>的其他问题</strong>
+			<ul>
+						<li><a href="http://www.oschina.net/question/234345_65965" title="解惑IEEE754 浮点数内存布局">解惑IEEE754 浮点数内存布局</a><span class="date">(0回/157阅,2个月前)</span></li>						<li><a href="http://www.oschina.net/question/234345_65964" title="MFC——Hierarchy Chart--顶层类是CObject">MFC——Hierarchy Chart--顶层类是CObject</a><span class="date">(0回/46阅,2个月前)</span></li>						<li><a href="http://www.oschina.net/question/234345_65963" title="莫邪内联汇编之C++成员函数__5">莫邪内联汇编之C++成员函数__5</a><span class="date">(0回/87阅,2个月前)</span></li>						<li><a href="http://www.oschina.net/question/234345_65962" title="关于全局变量的看法">关于全局变量的看法</a><span class="date">(0回/115阅,2个月前)</span></li>						<li><a href="http://www.oschina.net/question/234345_65961" title="C++静态成员函数 调用非静态成员函数">C++静态成员函数 调用非静态成员函数</a><span class="date">(0回/257阅,2个月前)</span></li>						</ul>
+		</div>
+				<div style="text-align:center;margin-bottom:20px;">
+		<script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/question.js"></script><script type="text/javascript"><!--
+google_ad_client = "ca-pub-7090564139599510";
+/* 728x90, 创建于 10-8-28 */
+google_ad_slot = "1226045167";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px"><iframe allowtransparency="true" frameborder="0" height="250" hspace="0" marginwidth="0" marginheight="0" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" scrolling="no" vspace="0" width="300" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
+
+		</div>
+		<div id="Similarity" class="Qlist">
+			<strong>类似的话题</strong>
+			<ul>
+        				<li><a href="http://www.oschina.net/question/54100_35239" title="在Android中使用Notification进行提示">在Android中使用Notification进行提示</a><span class="date">(0回/1063阅,10个月前)</span></li>						<li><a href="http://www.oschina.net/question/54100_32917" title="自定义Notification并利用Handler更新Notification">自定义Notification并利用Handler更新Notification</a><span class="date">(2回/1279阅,11个月前)</span></li>						<li><a href="http://www.oschina.net/question/195301_32033" title="什么是 Android ？">什么是 Android ？</a><span class="date">(0回/136阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/16_7602" title="Android 教程 使用Service">Android 教程 使用Service</a><span class="date">(1回/3941阅,3年前)</span></li>						<li><a href="http://www.oschina.net/question/54100_36981" title="Android电池电量监控初步">Android电池电量监控初步</a><span class="date">(1回/590阅,9个月前)</span></li>						<li><a href="http://www.oschina.net/question/157182_46455" title="Notification小例子">Notification小例子</a><span class="date">(0回/172阅,7个月前)</span></li>						<li><a href="http://www.oschina.net/question/54100_29551" title="Android 推送通知指南">Android 推送通知指南</a><span class="date">(29回/10738阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/157182_46448" title="android拦截短信并屏蔽系统的Notification">android拦截短信并屏蔽系统的Notification</a><span class="date">(1回/311阅,7个月前)</span></li>						<li><a href="http://www.oschina.net/question/54100_27886" title="Android系统架构图及简单的系统架构介绍">Android系统架构图及简单的系统架构介绍</a><span class="date">(0回/259阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/129540_64132" title="Android 操作系统的内存回收机制">Android 操作系统的内存回收机制</a><span class="date">(7回/4114阅,3个月前)</span></li>						<li><a href="http://www.oschina.net/question/157182_46451" title="Notification的属性">Notification的属性</a><span class="date">(0回/136阅,7个月前)</span></li>						<li><a href="http://www.oschina.net/question/166763_31360" title="android 权限大全">android 权限大全</a><span class="date">(0回/228阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/163910_29900" title="Android Permission 中英对照 ">Android Permission 中英对照 </a><span class="date">(1回/154阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/54100_32913" title="提高Android Service 优先级的方法">提高Android Service 优先级的方法</a><span class="date">(0回/285阅,11个月前)</span></li>						<li><a href="http://www.oschina.net/question/195301_31237" title="Android 和 iPhone 界面布局示例">Android 和 iPhone 界面布局示例</a><span class="date">(0回/485阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/12_2371" title="Android上获得系统root权限的方法">Android上获得系统root权限的方法</a><span class="date">(12回/25673阅,3年前)</span></li>						</ul>
+		</div>
+	</div>
+	<div class="clear"></div>   
+</div>
+<script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/kindeditor-min.js" charset="utf-8"></script>
+<script type="text/javascript">
+<!--
+var editor;
+KindEditor.ready(function(K) {
+    editor = K.create('#txt_answner', {
+		themeType : 'oschina',
+		resizeType : 1,
+		urlType: 'domain',
+		shadowMode : false,
+		allowPreviewEmoticons : false,
+		allowImageUpload : true,
+		allowFlashUpload : false,
+		cssPath : '/css/ke-oschina.css',
+		uploadJson : '/action/blog/upload_img',
+		afterCreate : function(){
+			K.ctrl(this.edit.iframe.get(0).contentWindow.document, 13, function() {
+				$("#txt_answner").parent().submit();
+			});
+		},
+		afterChange : function() {
+			this.sync();
+		},
+		items : ['bold', 'italic', 'underline', 'strikethrough', 'removeformat','|','insertorderedlist', 'insertunorderedlist', 
+				 'forecolor', 'hilitecolor', 'fontname', 'fontsize',  '|', 'link', 'unlink', 'emoticons', 
+				 'shcode', 'image', 'flash', 'quote', '|', 'source','about']
+    });
+});
+//-->
+</script>
+<!--[if lt IE 7]>
+<script type="text/javascript" src="/js/minmax.js"></script>
+<![endif]-->
+<script type="text/javascript" src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/question"></script>
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+    $('#form_answer').ajaxForm({
+    	dataType: 'json',
+		beforeSerialize: function($form, options) { 
+			editor.sync();           
+        },
+		beforeSubmit: function(){
+			$('#FormSubmitButton').attr('disabled','disabled');
+			$('#form_msg').html("<span class='ajax_processing'>正在提交评论，请稍候...</span>");	
+			$('#form_msg').show();	
+		},
+        success: function(json) {
+			$('#FormSubmitButton').removeAttr('disabled');
+    		if(json.msg){
+				$('#form_msg').html("<span class='error_msg'>"+json.msg+"</span>");
+				$('#form_msg').show();
+			}
+    		else if(json.id){
+    			ajax_get("/question/show_answer?_answer_id="+json.id, true, function(data){
+					    				$('.QuestionReplies ul.list').append(data);
+										editor.html('');
+					$('.answer_count').html(json.answer_count);
+    			}); 				
+				$('#form_msg').hide();
+    		}
+        }
+    });
+	$('.Answer .replies li').hover(
+		function(){$(this).addClass('hover');},
+		function(){$(this).removeClass('hover');}
+	);	
+	
+    $('.detail img').css('cursor','pointer');
+    jQuery.each($('.detail img'),function(idx,v){
+    	$(v).wrap("<a href='"+$(this).attr('src')+"' target='_blank'></a>");
+    });
+	
+	$('#c').bind('mouseover mouseout',function(){
+		$('#c_on').toggle();
+		$('#c_off').toggle();
+	});
+	
+	$('#favor_trigger').click(function(){
+			add_to_favor(40111,2);
+		});
+});
+function ask_too(qid, ask){
+	ajax_post("/action/question/ask_too?id="+qid+"&ask="+ask,"",function(html){
+		json = eval('('+html+')');
+		if(json.asker_count >= 0){
+			$('#c_asker_count').html(json.asker_count);
+			if(json.ask_mode)
+				$('#RQuestionAction').html("<span class='rect'>已问同一问题 | <a href='javascript:ask_too(40111,false)'>取消？</a></span>");
+			else
+				$('#RQuestionAction').html("<a href='javascript:ask_too(40111,true)' class='rndbutton'><span>我想问同样的问题</span></a>");			
+		}
+		else{
+			$('#RQuestionAction').poshytip({
+				className: 'tip-yellowsimple',
+				content: json.msg,
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'center',
+				alignY: 'top',
+				offsetY: 6
+			});
+			$('#RQuestionAction').poshytip('show');
+			var t = setTimeout(function(){
+				clearTimeout(t);
+				$('#RQuestionAction').poshytip('destroy');
+			},4000);
+		}
+	});
+}
+function delete_q(qid){
+	if(!confirm("您确认要删除此问题吗，删除的数据不可恢复？"))
+		return ;
+		ajax_post("/action/question/delete?id="+qid+"&hash=2044853355","",function(html){
+		if(html.length>0)
+			alert(html);
+		else{
+			location.href = "/question";
+		}
+	});
+}
+function edit_answer(aid){
+	location.href="/question/edit_answer?id="+aid;
+}
+function delete_answer(aid,hash){
+	if(!confirm("您确认要删除此答案吗，删除的数据不可恢复？"))
+		return ;
+	ajax_post("/action/question/delete_answer?id="+aid+"&hash="+hash,"",function(html){
+		if(html.length>0)
+			alert(html);
+		else{
+			$('#answer_'+aid).fadeOut();
+		}
+	});
+}
+function delete_post_reply(aid,hash){
+	if(!confirm("您确认要删除此评论吗，删除的数据不可恢复？"))
+		return ;
+	ajax_post("/action/question/delete_answer?id="+aid+"&hash="+hash,"",function(html){
+		if(html.length>0)
+			alert(html);
+		else{
+			$('#PostReply_'+aid).fadeOut();
+		}
+	});
+}
+function delete_q_rpl(qid, rid){
+	if(!confirm("删除补充说明会被扣威望值，是否继续？"))
+		return ;
+	ajax_post("/action/question/delete_detail?id="+rid,"",function(html){
+		if(html.length>0)
+			alert(html);
+		else
+			$("#q_reply_"+rid).fadeOut();
+	});
+}
+function close_tip(tid){$('#'+tid).poshytip('destroy');}
+//答案投票
+function vote_answer(qid, vote_up, need_confirm){
+	if(need_confirm && !vote_up){
+		if(!$('#a_post_votedown_' + qid).hasClass('bold')){
+			var vote_down_confirm_msg = "<p>此操作将会扣掉你1个积分，是否继续？</p><p style='margin-top:10px;'><a href='javascript:vote_answer("+qid+",false,false)' class='rbtn' style='margin:0 10px 0 50px;'><span>确定</span></a><a href=\"javascript:close_tip('a_post_votedown_" + qid +"')\" class='rbtn'><span>取消</span></a></p>";			
+			$('#a_post_votedown_' + qid).poshytip({
+				className: 'tip-yellowsimple',
+				content: vote_down_confirm_msg,
+				showOn: 'none',
+				slide: false,
+				fade: false,
+				alignTo: 'target',
+				alignX: 'center',
+				offsetY: 8
+			});
+			$('#a_post_votedown_' + qid).poshytip('show');
+			return;
+		}
+	}
+	if(!need_confirm){
+		$('#a_post_votedown_' + qid).poshytip('destroy');
+	}
+	ajax_post("/action/question/vote_answer?id="+qid+"&vote="+vote_up+"&user=${g_user.id}","",function(data){
+		json = eval('('+data+')');
+		if(json.msg){
+			var aid = vote_up?"a_post_voteup_":"a_post_votedown_";
+			aid += qid;
+			$('#'+aid).poshytip({
+				className: 'tip-yellowsimple',
+				content: json.msg,
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'center',
+				alignY: 'top',
+				offsetY: 6
+			});
+			$('#'+aid).poshytip('show');
+			var t = setTimeout(function(){
+				clearTimeout(t);
+				$('#'+aid).poshytip('destroy');
+			},2000);
+			//jQuery.fancybox("<div class='error_box'>"+json.msg+"</div>");
+		}
+		else{
+			if(vote_up){
+				$('#post_voteup_'+qid).html('('+json.vote+')');
+				$('#a_post_voteup_'+qid).toggleClass('bold');
+			}
+			else{
+				$('#post_votedown_'+qid).html('('+json.vote+')');
+				$('#a_post_votedown_'+qid).toggleClass('bold');
+			}
+		}
+	});
+}
+//问题投票 
+$('#vote_up').click(function(){
+	if(this.clickTimeout){
+        // 双击
+        clearTimeout(this.clickTimeout);
+        this.clickTimeout = null;
+		alert("不用那么费劲啦，点击一下就够了:)");
+    }
+    else{
+        // 单击
+        var elem = this;
+        this.clickTimeout = setTimeout(function(){
+            // 执行点击动作
+            elem.clickTimeout = null;
+			vote_question(40111,true, true);
+        }, 250);
+    }
+    //阻止链接onclick时的默认行为
+    return false;
+});
+$('#vote_down').click(function(){
+	vote_question(40111,false, true);
+	/*
+	if(this.clickTimeout){
+        // 双击
+        clearTimeout(this.clickTimeout);
+        this.clickTimeout = null;
+		alert("不用那么费劲啦，点击一下就够了:)");
+    }
+    else{
+        // 单击
+        var elem = this;
+        this.clickTimeout = setTimeout(function(){
+            // 执行点击动作
+            elem.clickTimeout = null;
+			vote_question(40111,false, true);
+        }, 250);
+    }
+    //阻止链接onclick时的默认行为
+	*/
+    return false;
+});
+function vote_question(qid, vote_up, need_confirm){
+	if(need_confirm && !vote_up){
+		if($('#Vote #vote_down').hasClass('ask_vote_down')){
+			var vote_down_confirm_msg = "<p>踩问题将会扣掉你1个积分，是否继续？</p><p style='margin-top:10px;'><a href='javascript:vote_question(40111,false,false)' class='rbtn' style='margin-right:10px;'><span>确定</span></a><a href=\"javascript:close_tip('vote_down')\" class='rbtn'><span>取消</span></a></p>";
+			$('#Vote #vote_down').poshytip({
+				className: 'tip-yellowsimple',
+				content: vote_down_confirm_msg,
+				slide: false,
+				fade: false,
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'inner-right',
+				alignY: 'bottom',
+				offsetX: -30,
+				offsetY: 15
+			});
+			$('#Vote #vote_down').poshytip('show');
+			return;
+		}
+	}
+	if(!need_confirm){
+		$('#Vote #vote_down').poshytip('destroy');
+	}
+	ajax_post("/action/question/vote?user=${g_user.id}&id="+qid+"&vote="+vote_up,"",function(data){
+		json = eval('('+data+')');
+		if(json.msg){
+			var aid = vote_up?"vote_up":"vote_down";
+			$('#'+aid).poshytip({
+				className: 'tip-yellowsimple',
+				content: json.msg,
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'inner-right',
+				alignY: 'bottom',
+				offsetX: 5,
+				offsetX: -35
+			});
+			$('#'+aid).poshytip('show');
+			var t = setTimeout(function(){
+				clearTimeout(t);
+				$('#'+aid).poshytip('destroy');
+			},2000);
+		}
+		else{
+						if(vote_up){
+				$('#Vote .vote-up-count').html(json.vote_up);
+				$('#Vote #vote_up').toggleClass('ask_vote_up');
+				$('#Vote #vote_up').toggleClass('ask_vote_uped');
+			}
+			else{
+				$('#Vote .vote-down-count').html(json.vote_down);
+				$('#Vote #vote_down').toggleClass('ask_vote_down');
+				$('#Vote #vote_down').toggleClass('ask_vote_downed');
+			}
+		}
+	});
+}
+//评论答案
+function reply_to_post(postid,uid){
+	popup("/action/ajax/reply_to_post?id=" + postid + "&refer="+uid);
+	}
+
+function show_rp_next(postid,current,total){
+	if(current < total){
+		var next_page = current + 1;
+    	var url = "/question/post_replies?answer="+postid+"&rp="+next_page;
+    	ajax_post(url,"",function(html){
+    		$('#PostReplies_'+postid).html(html);
+				addRepliesHoverEvent();
+			});
+	}
+}
+
+function addRepliesHoverEvent(){
+	$("li [id ^= 'PostReply']").hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	});
+}
+
+function show_rp_prev(postid,current,total){
+	if(current > 1){
+		var next_page = current - 1;
+    	var url = "/question/post_replies?answer="+postid+"&rp="+next_page;
+    	ajax_post(url,"",function(html){
+    		$('#PostReplies_'+postid).html(html);
+			addRepliesHoverEvent();
+    	});
+	}
+}
+function mark_as_top(qid, as_top) {
+	var args = "id="+qid+"&top="+as_top;
+	ajax_post("/action/question/mark_as_top",args,function(html){
+		alert(html);
+	});
+}
+function mark_as_best(postid, is_best){
+	var args = "id="+postid+"&best="+(is_best?1:0);
+	ajax_post("/action/question/mark_as_best",args,function(html){
+    	if(html.length>0){
+    		$('#best_answer_'+postid).poshytip({
+    			className: 'tip-yellowsimple',
+    			content: html,
+    			showOn: 'none',
+    			alignTo: 'target',
+    			alignX: 'center',
+    			alignY: 'top',
+    			offsetY: 6
+    		});
+    		$('#best_answer_'+postid).poshytip('show');
+    		var t = setTimeout(function(){
+    			clearTimeout(t);
+    			$('#best_answer_'+postid).poshytip('destroy');
+    		},2000);
+    	}
+    	else{
+			if(is_best)
+				$('#answer_'+postid).addClass('Best');
+			else
+				$('#answer_'+postid).removeClass('Best');
+    	}
+	});
+}
+function edit_tags(qid){
+	popup("/question/edit_tags?question="+qid);
+}
+function edit_catalogs(qid){
+	popup("/admin/catalog/set-catalogs?parent=1&type=2&id="+qid);
+}
+function event_apply(event_id){	
+	popup("/action/ajax/event_apply","id="+event_id);
+}
+function cancel_apply(event_id){
+	if(confirm("您确认要取消参加此次活动吗？")){
+		ajax_post("/action/event/cancel","event="+event_id,function(html){
+			if(html.length>0)
+				alert(html);
+			else
+				alert('已取消参加此次活动，感谢您的支持:)');
+		});
+	}
+}
+
+var favor_ok = "<p class='favor_ok'>已成功添加到收藏夹<br/><br/> <a href='null/favorites?type=$DAISY_OBJ_TYPE'>我的收藏夹</a> | <a href='javascript:close_favor()'>关闭</a></p>";
+function delete_favor(obi_id, obj_type){
+	if(!confirm('确定取消收藏？')) return;
+	$.post("/action/favorite/cancel?type="+obj_type+"&id="+obi_id+"&user=${g_user.id}",function(html){
+		$('#favor_trigger').parent('div').removeClass('ask_collected').addClass('ask_collect');
+		$('#favor_trigger').attr('title','添加到收藏');
+    	$('#p_favor_count').html(html);
+		$('#favor_trigger').unbind('click');
+		$('#favor_trigger').click(function(){add_to_favor(40111,2);});
+	});
+}
+function add_to_favor(obj_id, obj_type){
+	if(confirm('必须登录后才能收藏，是否现在登录？')){
+		location.href="http://www.oschina.net/home/login?goto_page="+location.href;
+	}
+}
+function close_favor(elem_id){
+    $('#favor_trigger').poshytip('destroy');
+}
+function setTag(tv){
+	var t = $("._favor_input");
+	var value = t.val();
+	if(value!="")
+		t.val(value+","+tv);
+	else
+		t.val(tv)
+}
+//-->
+</script></div>
+	<div class="clear"></div>
+	<div id="OSC_Footer">© 开源中国社区(OsChina.NET) | <a href="http://www.oschina.net/home/about">关于我们</a> | <a href="mailto:oschina.net@gmail.com">广告联系</a> | <a href="http://weibo.com/oschina2010" target="_blank">@新浪微博</a> | <a href="http://m.oschina.net/">开源中国手机版</a> | 粤ICP备12009483号-3
+<script type="text/javascript">
+<!--
+if (top.location != self.location)top.location=self.location;
+//-->
+</script></div>
+</div>
+<script type="text/javascript">
+<!--
+$(function(){
+	$('a.ShowUserOutline img.SmallPortrait').poshytip({
+		className: 'tip-yellowsimple',
+		alignTo: 'target',
+		alignX: 'right',
+		alignY: 'inner-top',
+		offsetX: 5,
+		offsetY: 0,
+		fade: false,
+		slide: false,
+		content: function(updateCallback) {
+			ajax_get("/action/ajax/get_user_outline?id="+$(this).attr('user'),false,function(html){
+				updateCallback(html);
+			});
+			return "<div style='height:100px;'>Loading...</div>";
+		}
+	});
+});
+
+function add_to_favorite(pid,concern_it){
+	alert("必须登录后才能收藏");
+}
+//-->
+</script>
+
+
+<!-- Generated by OsChina.NET (Mon Nov 19 13:25:24 CST 2012) 55ms --><div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div><div id="topcontrol" style="position: fixed; bottom: 120px; right: 100px; cursor: pointer; display: block;" title="回到顶部"><img src="./【Android】状态栏通知Notification、NotificationManager详解 - 讨论区 - 开源中国社区_files/gotop.gif" style="width:31px; height:31px;"></div></body></html>

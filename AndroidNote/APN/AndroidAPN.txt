@@ -1,0 +1,1 @@
+						Android APN 开发			  1.APN设置Action：android.settings.APN_SETTINGS   2.APN 权限 ：<uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />  3.APN URL："content://telephony/carriers"  5.获取权限：su  4.常用命令行命令： cd data/data/com.android.providers.telephony/databases

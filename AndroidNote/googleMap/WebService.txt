@@ -1,0 +1,34 @@
+https://developers.google.com/maps/documentation/directions/
+http://blog.csdn.net/snailandjava/article/details/6435734
+
+WebService :https://developers.google.com/maps/documentation/directions/?hl=zh-CN
+
+请求的URL格式：http://maps.googleapis.com/maps/api/directions/json?parameters
+
+10、读取输入流，即返回文本内容
+StringBuffer sb = new StringBuffer();
+BufferedReader br = new BufferedReader(new InputStreamReader(is));
+String line = “”;
+while((line=br.readLine())!=null){
+sb.append(line);
+}
+
+URL myurl = new URL(imageUrl);
+HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
+conn.setDoInput(true);
+conn.connect();
+InputStream is = conn.getInputStream();
+Bitmap bitmap = BitmapFactory.decodeStream(is);
+is.close();
+iv.setImageBitmap(bitmap);
+
+json不需要什么解释，结构已经很简单里。
+一对”[]“表示一个数组，“[]”中间每一个“{}"都是数组的一个元素。
+{}表示一个对象，{}内每一个":"和其前后组成对象的一个属性：”属性:属性值“
+比如上面的”Uid:用户编号“就是他外层{}的一个属性。
+属性的值还可以是对象或数组，比如上面的：Content:[..........] 或者Content:{..........}
+
+http://lib.open-open.com/view/open1326376799874.html
+
+
+

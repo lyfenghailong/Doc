@@ -1,0 +1,25 @@
+				google map api key
+
+1.指纹获取：keytool -list -alias androiddebugkey -keystore  "C:\Users\Administrator\.android\debug.keystore" -storepass android -keypass android 
+2.http://code.google.com/intl/zh-CN/android/maps-api-signup.html 申请Map API密钥了：
+3.MapView in xml。    <com.google.android.maps.MapView
+        android:id="@+id/gooleMapView"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:clickable="true"
+        android:apiKey="0jRive_iG1fS4ZhdJOdIt5giSqD_vo3HF9DmMbg"
+        />
+4.AndroidManifest.xml ：
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    
+    <uses-library android:required="true" android:name="com.google.android.maps" />
+    
+参考资料：
+   https://developers.google.com/maps/documentation/android/
