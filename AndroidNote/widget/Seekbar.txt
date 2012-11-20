@@ -1,0 +1,91 @@
+android 进度条seekbar样式自定义  	 (2012-04-23 14:28:30)转载▼
+标签： 杂谈	
+效果图：
+
+　SeekBar是ProgressBar的扩展，在其基础上增加了一个可拖动的thumb(注：就是那个可拖动的图标)。用户可以触摸thumb并向左或向右拖动，再或者可以使用方向键都可以设置当前的进度等级。
+
+布局文件：
+<SeekBar
+    android:id="@+id/seekbar"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="10dp"
+    android:maxHeight="8dp"
+    android:minHeight="8dp"
+    android:progressDrawable="@drawable/seekbar_style"
+    android:thumb="@android:drawable/ic_notification_overlay"
+    android:thumbOffset="0dp" />
+
+<TextView
+    android:id="@+id/progress"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" />
+
+
+seekbar的样式文件：
+
+
+seekbar_style.xml
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@android:id/background">
+<shape >
+            <corners android:radius="10dip" />
+            <gradient
+                android:angle="270"
+                android:centerColor="#F5F5F5"
+                android:centerY="0.45"
+                android:endColor="#F5F5F5"
+                android:startColor="#F5F5F5" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress">
+<clip >
+            <shape >
+                <corners android:radius="10dip" />
+                <gradient
+                    android:angle="270"
+                    android:centerColor="#FF75BC32"
+                    android:centerY="0.45"
+                    android:endColor="#FF75BC32"
+                    android:startColor="#FF75BC32" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>
+说明：如果想要改变进度条下面的那个白色的背景槽的颜色，在第一个item里面进行设置，可以通过设置@null 或者#00000000来把进度槽隐藏掉，如果想要改变进度条的颜色，在第二个种修改成自己需要的颜色即可
+activity类：
+
+
+public class SeekbarActivity extends Activity implements  
+SeekBar.OnSeekBarChangeListener{
+private SeekBar mSeekBar;
+private TextView progressNum;
+  
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        mSeekBar=(SeekBar) findViewById(R.id.seekbar);
+        progressNum=(TextView) findViewById(R.id.progress);
+    }
+@Override
+public void onProgressChanged(SeekBar seekBar, int progress,
+boolean fromUser) {
+// TODO Auto-generated method stub
+progressNum.setText(String.valueOf(progress + 1));
+}
+@Override
+public void onStartTrackingTouch(SeekBar seekBar) {
+// TODO Auto-generated method stub
+}
+@Override
+public void onStopTrackingTouch(SeekBar seekBar) {
+// TODO Auto-generated method stub
+}
+}
+
+更复杂的逻辑，需要自己根据自己的业务区实现
