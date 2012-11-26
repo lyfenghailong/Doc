@@ -1,0 +1,98 @@
+android 设置APN (2012-08-10 22:24:23)转载▼
+标签： android apn 移动网络 接入点 it	分类： android_space
+android的APN设置，也就是移动网络的接入点设置，有些时候可能项目需要会用到一些专用的apn专网，如果需要用户去手动设置的话显然可行性不高，所以需要在代码中自动为客户生成一个接入点，并在应用启动的时候自动切换到改接入点，退出的时候重新换回用户的默认接入点，这里只讲关键技术点，具体实现自行研究，实践才能出真知；
+
+1、首先了解一下APN的位置，
+// APN列表资源
+private static Uri APN_LIST_URI = Uri.parse("content://telephony/carriers");
+  
+ // 默认APN资源（当前正在使用的apn）
+ private static Uri PREFERRED_APN_URI = Uri.parse("content://telephony/carriers/preferapn");
+
+2、检测一个APN是否存
+int id = -1;
+ContentResolver resolver = context.getContentResolver();
+Cursor c = resolver.query(APN_LIST_URI, new String[] { "_id", "name", "apn" }, "apn like '%myapn%'", null, null); //从apn列表中查找apn名称为myapn的apn信息
+        if (c != null && c.moveToNext()) {
+            id = c.getShort(c.getColumnIndex("_id")); //获取该apn的id信息
+            System.out.println("APN已经存在");
+        } else {
+            System.out.println("APN不存在");        
+        }
+
+3、添加一个新的APN，设置apn的信息还需要获取当前SIM卡的运营商信息
+
+
+protected String getSIMInfo() {
+        TelephonyManager iPhoneManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return iPhoneManager.getSimOperator();
+}
+
+
+    public int AddXFTApn() {
+        System.out.println("添加一个新的apn ==> XFT APN");
+        int apnId = -1;
+        String NUMERIC = getSIMInfo();
+        if (NUMERIC == null) {
+            Toast.makeText(context, "不存在SIM卡", Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        ContentResolver resolver = context.getContentResolver();
+        ContentValues values = new ContentValues();
+
+        values.put("name",“专用APN”); //apn中文描述
+        values.put("apn", “myapn”);  //apn名称
+        values.put("type", "default,supl");
+        values.put("numeric", NUMERIC);
+        values.put("mcc", NUMERIC.substring(0, 3));
+        values.put("mnc", NUMERIC.substring(3, NUMERIC.length()));
+        values.put("proxy", "");
+        values.put("port", "");
+        values.put("mmsproxy", "");
+        values.put("mmsport", "");
+        values.put("user", "");
+        values.put("server", "");
+        values.put("password", "");
+        values.put("mmsc", "");
+        Cursor c = null;
+        // 获取新添加的apn的ID
+        try {
+            Uri newRow = resolver.insert(APN_LIST_URI, values);
+            if (newRow != null) {
+                c = resolver.query(newRow, null, null, null, null);
+                int idindex = c.getColumnIndex("_id");
+                c.moveToFirst();
+                apnId = idindex;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (c != null)
+            c.close();
+        return apnId;
+    }
+
+4、设置使用指定的apn接入点连接网络
+
+
+    public boolean setDefaultApn(int apnId) {
+//        System.out.println("设置选中的apnID ==》 " + apnId);
+        boolean res = false;
+        ContentResolver resolver = context.getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put("apn_id", apnId);
+        try {
+            resolver.update(PREFERRED_APN_URI, values, null, null);
+            Cursor c = resolver.query(PREFERRED_APN_URI, new String[] { "name", "apn" }, "_id=" + apnId, null, null);
+            if (c != null) {
+                res = true;
+                c.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+
+转载请注明出处：http://blog.sina.com.cn/s/blog_6dee445401013zr1.html
