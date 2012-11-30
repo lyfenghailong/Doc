@@ -1,0 +1,9 @@
+1.	
+        DisplayMetrics dm = new DisplayMetrics();
+        ((Activity) m_context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+		
+2
+		int height = 0;
+        Rect winRect = new Rect();
+        ((Activity)m_context).getWindow().getDecorView().getWindowVisibleDisplayFrame(winRect);
+        height = winRect.top;
