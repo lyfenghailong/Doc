@@ -1,0 +1,20 @@
+android中ImageView的ScaleType属性
+
+　　ScaleType的值分别代表的意义： ImageView是Android中的基础图片显示控件，该控件有个重要的属性是ScaleType，该属性用以表示显示图片的方式，共有8种取值
+
+　　ScaleType.CENTER：：图片大小为原始大小，如果图片大小大于ImageView控件，则截取图片中间部分，若小于，则直接将图片居中显示。
+
+　　ScaleType.CENTER_CROP：将图片等比例缩放，让图像的短边与ImageView的边长度相同，即不能留有空白，缩放后截取中间部分进行显示。
+
+　　ScaleType.CENTER_INSIDE：将图片大小大于ImageView的图片进行等比例缩小，直到整幅图能够居中显示在ImageView中，小于ImageView的图片不变，直接居中显示。
+
+　　ScaleType.FIT_CENTER：ImageView的默认状态，大图等比例缩小，使整幅图能够居中显示在ImageView中，小图等比例放大，同样要整体居中显示在ImageView中。
+
+　　ScaleType.FIT_END：缩放方式同FIT_CENTER，只是将图片显示在右方或下方，而不是居中。
+
+　　ScaleType.FIT_START：缩放方式同FIT_CENTER，只是将图片显示在左方或上方，而不是居中。
+
+　　ScaleType.FIT_XY：将图片非等比例缩放到大小与ImageView相同。
+
+　　ScaleType.MATRIX：是根据一个3x3的矩阵对其中图片进行缩放
+
