@@ -1,0 +1,62 @@
+一.反编译Apk得到Java源代码 
+
+转载自：http://hi.baidu.com/%CB%BF%D4%B5%CC%EC%CF%C2/blog/item/2284e2debafc541e495403ec.html
+
+ 
+
+工具下载：需用到dex2jar和JD-GUI这2个工具
+
+dex2jar下载地址：http://laichao.googlecode.com/files/dex2jar-0.0.7-SNAPSHOT.zip
+JD-GUI下载地址：
+  windows版JD-GUI：http://laichao.googlecode.com/files/jdgui.zip
+  Linux版JD-GUI：http://laichao.googlecode.com/files/jd-gui-0.3.2.linux.i686.tar.gz
+
+步骤：
+
+1.首先找到Android软件安装包中的classes.dex
+把.apk文件改名为.zip，然后解压缩,得到其中的classes.dex文件，它就是java文件编译再通过dx工具打包成的,所以现在我们就用上述提到的2个工具来逆方向导出java源文件
+
+2.把classes.dex拷贝到dex2jar.bat所在目录。
+在命令行模式下定位到dex2jar.bat所在目录，运行 dex2jar.bat classes.dex  ，生成classes.dex.dex2jar.jar 
+
+3.运行JD-GUI工具（它是绿色无须安装的）
+打开上面的jar文件，即可看到源代码
+
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+
+二.反编译apk生成程序的源代码和图片、XML配置、语言资源等文件。
+
+转载自：http://blog.sina.com.cn/s/blog_5752764e0100kv34.html
+
+工具下载：
+
+在http://code.google.com/p/android-apktool/下 载获得，apktool-1.0.0.tar.bz2和apktool-install-windows-2.1_r01-1.zip两个包都要下。
+
+步骤：
+
+1.解压缩下载的两个文件包，apktool-install-windows-2.1_r01-1.zip解压缩后得到的包里有aapt.exe 和apktool.bat.（注意要把apktool-1.0.0.tar.bz2解压后的一个.jar 文件copy进来）
+
+2.打开命令窗口 （开始 > 运行，输入cmd，回车。）进入到apktool.bat的文件夹里。
+
+          输入：
+
+                    apktool d C:\***.apk  C:\***文件夹 
+
+（命令行解释：apktool d 要反编译的文件 输出文件夹）
+
+特别注意：你要反编译的文件一定要放在C盘的根目录里，
+
+3.打开 C:\***文件夹 就可以得到我们学院的各种资源了。
+
+ 
+
+三.将反编译完的文件重新打包成apk
+
+ 很简单，只要输入：
+
+     apktood b c:***文件夹（你编译出来文件夹）
+	 
+	 
+	   apktool d E:\zone.apk  e:\文件夹 
